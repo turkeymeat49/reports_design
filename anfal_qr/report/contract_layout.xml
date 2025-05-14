@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+<template id="contract_layout2">
+    <t t-call="web.html_container" class="pt-2"> 
+    <style>
+        @font-face {src: url(/anfal_qr/static/src/fonts/Tajawal-Regular.ttf) format('truetype');}
+    </style>
+
+    <div class="header border-2 border-top border-start border-end border-dark" 
+    style="border-radius: 10px 10px 0 0; padding: 15px;"> 
+        <div class="d-flex" dir="rtl">
+            <div class="col-4">
+                <div class="d-flex justify-content-between" style="gap: 0 10px;">
+                    <div class="col-8 text-center">
+                        <div style="border-bottom: 1px solid black;">
+                            <p class="m-0">شركة أنفال السعودية للمشاريع المحدودة</p>
+                            <p class="m-0" dir="ltr">Saudi Anfal Company for Project Ltd.</p>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <img t-if="o.company_id.logo" class="w-75" t-att-src="image_data_uri(o.company_id.logo)"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4 text-center">
+                <div class="text-center" 
+                style="width: 200px; margin: auto; border: 1px solid black; border-radius: 25px;">
+                    <span style="font-size: 20px;">عقد Contract</span>
+                </div>
+                <p class="m-0">رقم ملف ضريبة القيمة المضافة: 300036821400003</p>
+            </div>
+            <div class="col-4">
+                <div class="d-flex">
+                    <div class="col-6">
+                        <p class="m-0 text-danger"><t t-esc="o.name"/></p>
+                    </div>
+                    <div class="col-6">
+                        <p class="m-0">twitter.com@anfalgroup</p>
+                        <p class="m-0">CEO: twitter.com@dr_henaki</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer border-2 border-top border-start border-end border-dark pt-2 text-center" dir="rtl">    
+        <h4 style="text-decoration: underline;">الإدارة العامة: ص.ب ۸۷٥٦۷ الرياض ۱۱٦٥۲ المملكة العربية السعودية - الرقم الموحد ۹۲۰۰۱٥۱٥۱</h4>
+    </div>
+
+
+    <t t-call="web.external_layout">
+        <div class="page border-2  border-start border-end border-dark px-2" style="font-family: 'Tajawal', sans-serif; font-size:13px">
+            <style>
+                td { padding: 0 !important; }
+            </style>
+            <table class="table table-borderless m-0" dir="rtl">
+                <tr>
+                    <td style="width: 33.3%">
+                        <p class="m-0">الفرع: </p>
+                        <p class="m-0">الطرف الأول: شركة أنفال السعودية للمشاريع المحدودة</p>
+                    </td>
+                    <td style="width: 33.3%">
+                        <table class="table table-borderless m-0 text-center">
+                            <td><span class="col-3">التاريخ: </span></td>
+                            <td><span class="col-6" t-field="o.date_order" /> </td>
+                            <td><span class="col-3" dir="ltr">Date: </span></td>
+                        </table>
+                    </td>
+                    <td style="width: 33.3%" dir="ltr">
+                        <p class="m-0">Branch:</p>
+                        <p class="m-0">First Party: Saudi Anfal Company for Project Ltd.</p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">
+                        <table class="table table-borderless m-0 text-end">
+                            <td><span class="col-3">الطرف الثاني: </span></td>
+                            <td>
+                                <p class="m-0" t-field="o.partner_id.name" />
+                            </td>
+                            <td><span class="col-3" dir="ltr">Second Party: </span></td>
+                        </table>
+                    </td>
+                    <td>
+                        <span class="m-0">رقم ملف ضريبة القيمة المضافة للعميل:</span>
+                        <span class="m-0" t-field="o.partner_id.vat" />
+                    </td>
+                </tr>
+            </table>
+
+            <table class="table table-borderless m-0" dir="rtl">                   
+                <tr>
+                    <td class="w-50">
+                        <table class="table table-borderless m-0">
+                            <td class="px-1 text-end"><span style="width: 33.3%;">جوال: </span></td>
+                            <td class="px-1 text-center" style="width: 33.3%;"> <p class="m-0" t-field="o.partner_id.mobile" /> </td>
+                            <td class="px-1 text-start"><span style="width: 33.3%;" dir="ltr">Mobile: </span></td>
+                        </table>
+                    </td>
+                    <td class="w-50">
+                        <table class="table table-borderless m-0">
+                            <td class="px-1 text-end"><span style="width: 33.3%;">هاتف سكن: </span></td>
+                            <td class="px-1 text-center" style="width: 33.3%;"> <p class="m-0" t-field="o.partner_id.phone" /> </td>
+                            <td class="px-1 text-start"><span style="width: 33.3%;" dir="ltr">Home Tel: </span></td>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+
+            <table class="table table-borderless m-0" dir="rtl"> 
+                <tr>
+                    <td style="width: 45%;">
+                        <table class="table table-borderless w-100 m-0">
+                            <tr>
+                                <td>عنوان الموقع:</td>
+                                <td>
+                                    <span class="w-50">المدينة:</span>
+                                    <span class="w-50" t-field="o.partner_id.state_id.name" />
+                                </td>
+                                <td>
+                                    <span class="w-50">الحي:</span>
+                                    <span class="w-50" t-field="o.partner_id.distract.distract" />
+                                </td>
+                                <td>
+                                    <span class="w-50">الشارع:</span>
+                                    <span class="w-50" t-field="o.partner_id.street" />
+                                </td>
+                                <td>
+                                    <span class="w-50">رقم المنزل:</span>
+                                    <span class="w-50" t-field="o.partner_id.building_no" />
+                                </td>
+                                
+                            </tr>
+                        </table>
+                    </td>
+                    <td style="width: 10%;">
+                        <table class="table table-borderless w-100 m-0 text-center">
+                            <tr>
+                                <td>
+                                    <span style="width: 33.3%;">الهاتف:</span>
+                                    <span style="width: 33.3%;" t-field="o.partner_id.mobile" />
+                                    <span style="width: 33.3%;" dir="ltr">Tel.:</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td style="width: 45%;">
+                        <table class="table table-borderless w-100 m-0" dir="ltr">
+                            <tr>
+                                <td>Site Address:</td>
+                                <td>
+                                    <span class="w-50">City:</span>
+                                    <span class="w-50" t-field="o.partner_id.state_id.name" />
+                                </td>
+                                <td>
+                                    <span class="w-50">Area:</span>
+                                    <span class="w-50" t-field="o.partner_id.distract.distract" />
+                                </td>
+                                <td>
+                                    <span class="w-50">Street:</span>
+                                    <span class="w-50" t-field="o.partner_id.street" />
+                                </td>
+                                <td>
+                                    <span class="w-50">House No.:</span>
+                                    <span class="w-50" t-field="o.partner_id.building_no" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                
+            </table>
+
+            <table class="table table-borderless m-0" dir="rtl">                   
+                <tr>
+                    <td class="w-50">
+                        <p class="m-0">أولا نطاق العمل: يوافق الطرف الأول بموجب هذا العقد علي الاتي:</p>
+                    </td>
+                    <td class="w-50">
+                        <p class="m-0" dir="ltr">Firstly: Scope of Work: As Per this Contract, the First party agrees as follows: </p>
+                    </td>
+                </tr>
+            </table>
+
+            <table class="table table-borderless m-0" dir="rtl">
+                <tr>
+                    <td style="width: 33.3%">
+                        <table class="table table-borderless m-0 text-center">
+                            <td class="w-50">
+                                <div class="d-flex">
+                                    <div class="border border-dark" style="width: 15px; height: 20px; margin-left: 10px;"></div>
+                                    <span>تسليم المنتج من المستودع في (  )</span>
+                                </div>
+                            </td>
+                            <td class="w-50">
+                                <div class="d-flex">
+                                    <div class="border border-dark" style="width: 15px; height: 20px; margin-left: 10px;"></div>
+                                    <span>توريد المنتج من المستودع في (  )</span>
+                                </div>
+                            </td>
+                        </table>
+                    </td>
+                    <td style="width: 30%">
+                        <table class="table table-borderless m-0 text-center">
+                            <td class="w-50">
+                                <div class="d-flex">
+                                    <div class="border border-dark" style="width: 15px; height: 20px; margin-left: 10px;"></div>
+                                    <span>توريد وتركيب المنتج من المستودع في (  )</span>
+                                    <span dir="ltr">Supply &amp; Installation in Prod. in</span>
+                                    <div class="border border-dark" style="width: 15px; height: 20px; margin-right: 10px;"></div>
+                                </div>
+                            </td>
+                        </table>
+                    </td>
+                    <td style="width: 36.3%" dir="ltr">
+                        <table class="table table-borderless m-0 text-center">
+                            <td class="w-50">
+                                <div class="d-flex">
+                                    <div class="border border-dark" style="width: 15px; height: 20px; margin-right: 5px;"></div>
+                                    <span>Received the Product from strore in (  )</span>
+                                </div>
+                            </td>
+                            <td class="w-50">
+                                <div class="d-flex">
+                                    <div class="border border-dark" style="width: 15px; height: 20px; margin-right: 5px;"></div>
+                                    <span>Delivery the Product from strore in (  )</span>
+                                </div>
+                            </td>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+
+            <table class="table table-borderless m-0" dir="rtl">                   
+                <tr>
+                    <td class="w-75">
+                        <p class="m-0">الي الطرف الثاني حسب المواصفات والشروط ادناه مع التزام الطرف التاني بالسداد حسب شروط الدفع الموضحه في هذا العقد</p>
+                        <p class="m-0 text-end" dir="ltr">The 2nd party as per the following terms with commitment of the 2nd party as the conditions shown in this contract.</p>
+                        <p class="m-0">ثانيا البيان: <b>للملاحظة: بالمنظقة الوسطي (٠٥٥۸٤٠٠۹٠٠) باقي المناطق (٠٥٠١٥٠٥٥٥٥)</b></p>
+                    </td>
+                    <td class="w-25">
+                        <p class="m-0" dir="ltr"> <b>Secondly: Description: </b></p>
+                    </td>
+                </tr>
+            </table>
+
+            <table class="table border-dark m-0 text-center" dir="rtl">
+                <tr>
+                    <td class="p-0" rowspan="2">
+                        <p class="m-0">م.</p>
+                        <p class="m-0" dir="ltr">SL.</p>
+                    </td>
+                    
+                    <td class="p-0" rowspan="2">
+                        <p class="m-0">المنتج</p>
+                        <p class="m-0" dir="ltr">Product</p>
+                    </td>
+
+                    <td class="p-0" colspan="2">
+                        <span>المقاس</span>
+                        <span>Size</span>
+                    </td>
+
+                    <td class="p-0" rowspan="2">
+                        <p class="m-0">اللون</p>
+                        <p class="m-0" dir="ltr">Color</p> 
+                    </td>
+                    
+                    <td class="p-0" rowspan="2">
+                        <p class="m-0">الكهرباء</p>
+                        <p class="m-0" dir="ltr">Electric</p> 
+                    </td>
+                    
+                    <td class="p-0" rowspan="2">
+                        <p class="m-0">الأعمال الإضافية</p>
+                        <p class="m-0" dir="ltr">Additional Work</p> 
+                    </td>
+
+                    <td class="p-0" colspan="5">
+                        <span>السعر الإفرادي</span>
+                        <span>Unit Price</span>
+                    </td>
+
+                    <td class="p-0" rowspan="2">
+                        <p class="m-0">الكمية</p>
+                        <p class="m-0" dir="ltr">Qty.</p> 
+                    </td>
+                    
+                    <td class="p-0" rowspan="2">
+                        <p class="m-0">الإجمالي قبل الضريبة</p>
+                        <p class="m-0" dir="ltr">Balance Total Vlaue</p> 
+                    </td>
+
+                    <td class="p-0" rowspan="2">
+                        <p class="m-0">نسبة الضريبة</p>
+                        <p class="m-0" dir="ltr">VAT %</p> 
+                    </td>
+                    
+                    <td class="p-0" rowspan="2">
+                        <p class="m-0">قيمة الضريبة</p>
+                        <p class="m-0" dir="ltr">VAT Value</p> 
+                    </td>
+                    
+                    <td class="p-0" rowspan="2">
+                        <p class="m-0">الإجمالي بعد الضريبة</p>
+                        <p class="m-0" dir="ltr">After Total Value</p> 
+                    </td>
+                </tr>
+                <tr>
+                    <td class="p-0">
+                        <p class="m-0" dir="ltr">Height</p> 
+                    </td>
+                    
+                    <td class="p-0">
+                        <p class="m-0" dir="ltr">Width</p> 
+                    </td>
+
+                    <td class="p-0">
+                        <p class="m-0">السعر</p>
+                        <p class="m-0" dir="ltr">Price</p> 
+                    </td>
+
+                    <td class="p-0">
+                        <p class="m-0">الخصم</p>
+                        <p class="m-0" dir="ltr">Discount</p> 
+                    </td>
+
+                    <td class="p-0">
+                        <p class="m-0">السعر بعد الخصم</p>
+                        <p class="m-0" dir="ltr">P. After Disc.</p> 
+                    </td>
+
+                    <td class="p-0">
+                        <p class="m-0">تكاليف اخري</p>
+                        <p class="m-0" dir="ltr">P. Other Charges</p> 
+                    </td>
+
+                    <td class="p-0">
+                        <p class="m-0">المجموع</p>
+                        <p class="m-0" dir="ltr">Total</p> 
+                    </td>
+                </tr>
+                
+                <!-- items -->
+                <t t-set="i" t-value="1" />
+                <t t-foreach="o.order_line" t-as="line">
+                    <t t-if="not line.display_type">  
+                        <tr>
+                            <td class="p-0"><t t-esc="i" /></td>
+                            <td class="p-0"><t t-esc="line.product_id.name" /></td>
+                            <td class="p-0"></td>
+                            <td class="p-0"></td>
+                            <td class="p-0"></td>
+                            <td class="p-0"></td>
+                            <td class="p-0"></td>
+                            <td class="p-0"><t t-esc="line.price_unit" /></td>
+                            <td class="p-0"></td>
+                            <td class="p-0"><t t-esc="line.price_unit" /></td>
+                            <td class="p-0"></td>
+                            <td class="p-0"><t t-esc="line.price_unit" /></td>
+                            <td class="p-0"><t t-esc="line.product_uom_qty" /></td>
+                            <td class="p-0"><t t-esc="line.price_subtotal" /></td>
+                            <td class="p-0">
+                                <t t-if="line.tax_id" >
+                                    <t t-esc="line.tax_id[0].name" />
+                                </t>    
+                            </td>
+                            
+                            <td class="p-0"><t t-esc="line.price_total - line.price_subtotal" /></td>
+                            <td class="p-0"><t t-esc="line.price_total" /></td>
+                        </tr>
+                        <t t-set="i" t-value="i+1" />
+                    </t>
+                    <t t-else="">
+                        <tr>
+                            <td colspan="17" class=""><t t-esc="line.name" /></td>
+                        </tr>
+                    </t>
+                </t>
+                <tr>
+                    <td colspan="17">
+                        <table class="table table-borderless m-0 text-center" dir="rtl">
+                            <tr>
+                                <td class="py-2 text-center" style="width: 10%;">القيمة الإجمالية للعقد:</td>
+                                <td class="py-2 text-center" style="width: 80%;">.........................................................................................................................................................................................................................................................................................................................................................................</td>
+                                <td class="py-2 text-center" style="width: 10%;" dir="ltr">Total Contract Value: </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+
+            <table class="table table-borderless m-0" dir="rtl">                   
+                <tr>
+                    <td class="w-50">
+                        <p class="m-0">ثالثا: شروط الدفع: </p>
+                    </td>
+                    <td class="w-50">
+                        <p class="m-0" dir="ltr">Third: Payment Terms: </p>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="w-50">
+                        <table class="table table-borderless m-0">
+                            <tr>
+                                <td style="width: 33.3%;">
+                                    <p class="m-0 text-end">١- دفعة المقدمة مقدارها: </p>    
+                                </td>
+                                <td style="width: 33.3%;">
+                                    <p class="m-0 text-center">........................................................................................</p>    
+                                </td>
+                                <td style="width: 33.3%;">
+                                    <p class="m-0 ps-1 text-start">تدفع عند توقيع العقد</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="w-50">
+                        <table class="table table-borderless m-0 text-center" dir="ltr">
+                            <tr>
+                                <td style="width: 33.3%;">
+                                    <p class="m-0 text-start">1- Advance Payment of: </p>    
+                                </td>
+                                <td style="width: 33.3%;">
+                                    <p class="m-0 text-center">........................................................</p>    
+                                </td>
+                                <td style="width: 33.3%;">
+                                    <p class="m-0 pe-1 text-end">To be Paid After Singing the Contract </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+
+            <table class="table table-borderless m-0" dir="rtl">   
+                <tr>
+                    <td class="w-50">
+                        <table class="table table-borderless m-0 text-center">
+                            <tr>
+                                <td style="width: 33.3%;">
+                                    <p class="m-0 text-end">٢- دفعة المقدمة مقدارها: </p>    
+                                </td>
+                                <td style="width: 33.3%;">
+                                    <p class="m-0 text-center">........................................................</p>    
+                                </td>
+                                <td style="width: 33.3%;">
+                                    <p class="m-0 pe-1 text-start">يدفع قبل: </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+
+                    <td class="w-50">
+                        <table class="table table-borderless m-0 text-center" dir="ltr">
+                            <tr>
+                                <td style="width: 33.3%;">
+                                    <p class="m-0 text-start">2- The Remaining Contract Value of: </p>    
+                                </td>
+                                <td style="width: 33.3%;">
+                                    <p class="m-0 text-center">........................................................</p>    
+                                </td>
+                                <td style="width: 33.3%;">
+                                    <p class="m-0 pe-1 text-end">To be Paid before: </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="w-50">
+                        <table class="table table-borderless m-0">
+                            <tr>
+                                <td style="width: 33.3%;">
+                                    <div class="d-flex">
+                                        <div style="width: 15px; height: 20px; border: 1px solid black; margin-left: 10px;"></div>
+                                        <p class="m-0">التسليم</p>
+                                    </div>
+                                </td>
+                                <td style="width: 33.3%;">
+                                    <div class="d-flex">
+                                        <div style="width: 15px; height: 20px; border: 1px solid black; margin-left: 10px;"></div>
+                                        <p class="m-0">التوريد</p>
+                                    </div>
+                                </td>
+                                <td style="width: 33.3%;">
+                                    <div class="d-flex">
+                                        <div style="width: 15px; height: 20px; border: 1px solid black; margin-left: 10px;"></div>
+                                        <p class="m-0">التوريد والتركيب</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+
+                    <td class="w-50" dir="ltr">
+                        <table class="table table-borderless m-0">
+                            <tr>
+                                <td style="width: 33.3%;">
+                                    <div class="d-flex">
+                                        <div style="width: 15px; height: 20px; border: 1px solid black; margin-right: 10px;"></div>
+                                        <p class="m-0">Supply</p>
+                                    </div>
+                                </td>
+                                <td style="width: 33.3%;">
+                                    <div class="d-flex">
+                                        <div style="width: 15px; height: 20px; border: 1px solid black; margin-right: 10px;"></div>
+                                        <p class="m-0">Delivery</p>
+                                    </div>
+                                </td>
+                                <td style="width: 33.3%;">
+                                    <div class="d-flex">
+                                        <div style="width: 15px; height: 20px; border: 1px solid black; margin-right: 10px;"></div>
+                                        <p class="m-0">Supply &amp; Installation</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="w-50">
+                        <table class="table table-borderless m-0">
+                            <tr>
+                                <td style="width: 25%;" class="pt-2">
+                                    <div class="d-flex">
+                                        <span style="margin-left: 10px;">٣- سيتم </span>
+                                        <div style="width: 15px; height: 20px; border: 1px solid black; margin-left: 10px;"></div>
+                                        <p class="m-0">التسليم</p>
+                                    </div>
+                                </td>
+                                <td style="width: 25%;" class="pt-2">
+                                    <div class="d-flex">
+                                        <div style="width: 15px; height: 20px; border: 1px solid black; margin-left: 10px;"></div>
+                                        <p class="m-0">التوريد</p>
+                                    </div>
+                                </td>
+                                <td style="width: 25%;" class="pt-2">
+                                    <div class="d-flex">
+                                        <div style="width: 15px; height: 20px; border: 1px solid black; margin-left: 10px;"></div>
+                                        <p class="m-0">التوريد والتركيب</p>
+                                        <span style="margin-right: 10px;">خلال: </span>
+                                    </div>
+                                </td>
+                                <td style="width: 25%;" class="pt-2 text-start">
+                                    <p class="m-0">من استلام كامل القيمة:</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+
+                    <td class="w-50" dir="ltr">
+                        <table class="table table-borderless m-0">
+                            <tr>
+                                <td style="width: 25%;" class="pt-2">
+                                    <div class="d-flex">
+                                        <span style="margin-right: 10px;">3- </span>
+                                        <div style="width: 15px; height: 20px; border: 1px solid black; margin-right: 10px;"></div>
+                                        <p class="m-0">Supply</p>
+                                    </div>
+                                </td>
+                                <td style="width: 25%;" class="pt-2">
+                                    <div class="d-flex">
+                                        <div style="width: 15px; height: 20px; border: 1px solid black; margin-right: 10px;"></div>
+                                        <p class="m-0">Delivery</p>
+                                    </div>
+                                </td>
+                                <td style="width: 25%;" class="pt-2">
+                                    <div class="d-flex">
+                                        <div style="width: 15px; height: 20px; border: 1px solid black; margin-right: 10px;"></div>
+                                        <p class="m-0">Supply &amp; Installation</p>
+                                        <span style="margin-left: 10px;">will be within: </span>
+                                    </div>
+                                </td>
+                                <td style="width: 25%;" class="pt-2 text-center">
+                                    <p class="m-0">.....................</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <p class="m-0" dir="ltr">4- In Case there is any difference with the specifications, the 2nd party shall pay the difference or cost of the Additional work as a result of this change of size specifications.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p class="m-0"> <b>رابعا: الضمان: </b> </p>
+                    </td>
+
+                    <td>
+                        <p class="m-0" dir="ltr"> <b>Fourth: Warranty: </b> </p>
+                    </td>
+                </tr>
+            </table>
+
+            <table class="table table-borderless m-0" dir="rtl">                   
+                <tr>
+                    <td class="w-50">
+                        <p class="m-0">أولا نطاق العمل: يوافق الطرف الأول بموجب هذا العقد علي الاتي:</p>
+                    </td>
+                    <td class="w-50">
+                        <p class="m-0" dir="ltr">Firstly: Scope of Work: As Per this Contract, the First party agrees as follows: </p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </t>
+
+    </t>
+</template>
+
+
+<template id="contract_layout">
+    <t t-foreach="docs" t-as="o">
+        <t t-call="anfal_qr.contract_layout2" />
+    </t>
+</template>
+
+<record id="report_contract_layout" model="ir.actions.report">
+    <field name="name">Contract</field>
+    <field name="model">sale.order</field>
+    <field name="report_name">anfal_qr.contract_layout</field>
+    <field name="report_file">anfal_qr.contract_layout</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="binding_type">report</field>
+    <field name="binding_model_id" ref="model_sale_order"/>
+    <field name="paperformat_id" ref="anfal_qr.anfal_qr_custom_contract_layout"/>
+</record>
+
+</odoo>

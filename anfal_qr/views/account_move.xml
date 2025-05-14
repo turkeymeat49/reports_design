@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="account_move_inherit_view_form" model="ir.ui.view">
+        <field name="name">account.move.inherit.view.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <field name = "payment_reference" position = "after">
+                <!-- 
+                <field name="sh_qr_code_img" widget="image" class="oe_avatar float-left" invisible="state in ['draft','cancel']"/>
+                <field name="amount_in_words" invisible="1"/>
+                <field name="amount_in_words_ar" invisible="1" /> 
+                <field name="s_subtotal" /> 
+                <field name="s_total_tax" /> 
+                <field name="s_total" /> 
+                <field name="payment_id" /> 
+                <field name="payment_ids" widget="one2many_tags" /> 
+                <field name="s_paid" /> 
+                <field name="s_residual" /> 
+                <button name="compute_summary_totals"  string="test"  type="object" /> 
+                -->
+            </field>
+
+        </field>        
+    </record>
+</odoo>

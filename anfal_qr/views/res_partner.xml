@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="res_partner_inherit_view_form" model="ir.ui.view">
+        <field name="name">res.partner.inherit.view.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <field name="vat" position="after" >
+                <field name="additional_no" />
+                <field name="other_seller_id" />
+            </field>
+            <xpath expr="//sheet/group" position="after">
+                <group>
+                    <group>
+                        <label for="sh_street" string="Address"/>
+                        <div class="o_address_format">
+                            <field name="building_no" placeholder="building_no..." class="o_address_street"/>
+                            <field name="district" placeholder="district..." class="o_address_street"/>
+                            <field name="sh_street" placeholder="Street..." class="o_address_street"/>
+                            <field name="sh_street2" placeholder="Street 2..." class="o_address_street"/>
+                            <field name="sh_city" placeholder="City" class="o_address_zip"/>
+                            <field name="sh_state_id" class="o_address_zip" placeholder="State" />
+                            <field name="sh_zip" placeholder="ZIP" class="o_address_zip" />
+                            <field name="sh_country_id" placeholder="Country" class="o_address_country" />
+                        </div>
+                    </group>
+                </group>
+            </xpath> 
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+<template id="report_invoice_document2">
+<t t-call="web.html_container" class="pt-2"> 
+<style>
+    @font-face {src: url(/anfal_qr/static/src/fonts/Tajawal-Regular.ttf) format('truetype');}
+</style>
+
+
+<t t-call="web.external_layout">
+    <div class="page" dir="ltr" style=" font-family: 'Tajawal', sans-serif; font-size:13px">
+            <!-- page-break-inside:avoid; -->
+            <!-- First Table -->
+            <table class="table"  style="width:100%; border:1px solid black; padding:2px;">
+                <tr style="width:25%;border:1px solid black; padding:2px;">
+                    <td style="width:25%; border:1px solid black; padding:2px; text-align: center;"><t t-esc="doc.company_id.company_registry"/></td>
+                    <th style="width:25%; border:1px solid black; padding:2px;background-color:#FFFFF0">CR NO.  |  رقم السجل التجاري</th>
+                    <td style="width:25%; border:1px solid black; padding:2px; text-align: center;"><t t-esc="doc.company_id.vat"/></td>
+                    <th style="width:25%; border:1px solid black; padding:2px;background-color:#FFFFF0">VAT NO.  | رقم ضريبة القيمة المضافة</th>
+                </tr>
+            </table>
+            <!-- End Of First Table -->
+            <br/>
+            <!-- Header DIV -->
+            <t t-if="doc.partner_id.company_type == 'company'">
+                <div style="border:1px solid #E4D00A; width:400px; margin:auto; text-align:center; background-color:#E4D00A;" class="row">
+                    <!-- 1st Inner Row Column -->
+                    <div class="col-md-2" style="width:200px; text-align:center"> 
+                        <h3 class="m-0" t-if="doc.move_type not in ('out_refund')">TAX INVOICE</h3>
+                        <h3 class="m-0" t-if="doc.move_type  in ('out_refund')">CREDIT NOTE</h3>
+                    </div>
+                    <!--End of  1st Inner Row Column -->
+                    <!-- 2nd Inner Row Column -->
+                    <div class="col-md-2"  style="width:200px; text-align:center">
+                        <h3 class="m-0" t-if="doc.move_type not in ('out_refund')">فاتورة ضريبية</h3>
+                        <h3 class="m-0" t-if="doc.move_type  in ('out_refund')">إشعار دائن</h3>
+                    </div>
+                    <!-- End of 2nd Inner Row Column -->
+                </div>
+            </t>
+            <t t-else="">
+                <div style="border:1px solid #E4D00A; width:400px; margin:auto; text-align:center; background-color:#E4D00A;">
+                        <h3 class="m-0" t-if="doc.move_type not in ('out_refund')">فاتورة ضريبية مبسطة</h3>
+                        <h3 class="m-0" t-if="doc.move_type  in ('out_refund')">إشعار دائن</h3>
+                        <h3 class="m-0" t-if="doc.move_type not in ('out_refund')">TAX INVOICE</h3>
+                        <h3 class="m-0" t-if="doc.move_type in ('out_refund')">CREDIT NOTE</h3>
+                </div>
+            </t>
+            <!-- End of Header DIV -->
+            <br/>
+            <div class="row" style="width:100%">
+                <div class="col-md-2" style="width:40%;text-align:left">
+                    <img t-att-src="image_data_uri(doc.sh_qr_code_img)" alt="not found" t-if="doc.sh_qr_code_img" style="width:120px;"/>
+                </div>
+                <div class="col-md-2" style="width:60%;text-align:center">
+                    <!-- 2nd Table -->
+                    <table class="table" style="width:100%;border:1px solid black;margin:auto">
+                        <tr style="border:1px solid black;padding:2px;">
+                            <th style="width:30%;border:1px solid black;padding:2px;text-align:left;background-color:#FFFFF0">Number Invoice </th>
+                            <td style="width:40%;border:1px solid black;text-align:center;padding:2px"><t t-esc="doc.name"/></td>
+                            <th style="width:30%;border:1px solid black;text-align:right;padding:2px;background-color:#FFFFF0">رقم الفاتورة</th>
+                        </tr>
+                        <tr style="border:1px solid black;padding:2px;">
+                            <th style="width:30%;border:1px solid black;text-align:left;padding:2px;background-color:#FFFFF0">Invoice Date</th>
+                            <td style="width:40%;border:1px solid black;text-align:center;padding:2px"><t t-esc="doc.invoice_date"/></td>
+                            <th style="width:30%;border:1px solid black;text-align:right;padding:2px;background-color:#FFFFF0">تاريخ الفاتورة</th>
+                        </tr>
+                        <tr style="border:1px solid black;padding:2px;">
+                            <th style="width:30%;border:1px solid black;text-align:left;padding:2px;background-color:#FFFFF0">Due Date</th>
+                            <td style="width:40%;border:1px solid black;text-align:center;padding:2px"><t t-esc="doc.invoice_date_due"/></td>
+                            <th style="width:30%;border:1px solid black;text-align:right;padding:2px;background-color:#FFFFF0">تاريخ الاستحقاق</th>
+                        </tr>
+                        <tr style="border:1px solid black;padding:2px;">
+                            <th style="width:30%;border:1px solid black;text-align:left;padding:2px;background-color:#FFFFF0">Payment terms</th>
+                            <td style="width:40%;border:1px solid black;text-align:center;padding:2px"><t t-esc="doc.invoice_payment_term_id.name"/></td>
+                            <th style="width:30%;border:1px solid black;text-align:right;padding:2px;background-color:#FFFFF0">شروط الدفع</th>
+                        </tr>
+                    </table>
+                    <!-- End of 2nd Table -->
+                </div>
+            </div>
+            <br/>
+            <!-- 3rd Table -->
+            <table class="table" style="border:1px solid black;padding:2px;">
+                <tr>
+                    <!-- Seller info columns-->
+                    <th style="width:15%;border:1px solid black;padding:4px;border-right:0px solid transparent;text-align:left;background-color:#FFFFF0">Seller Info</th>
+                    <td style="width:20%;border:1px solid black;padding:2px;border:0px solid transparent;background-color:#FFFFF0"></td>
+                    <th style="width:15%;border:1px solid black;padding:4px;text-align:right;border-left:0px solid transparent;background-color:#FFFFF0">بيانات التاجر</th>
+
+                    <!-- Buyer Info Columns  -->
+                    <th style="width:15%;border:1px solid black;padding:4px;border-right:0px solid transparent;text-align:left;background-color:#FFFFF0">Buyer Info</th>
+                    <td style="width:20%;border:1px solid black;padding:2px;border:0px solid transparent;background-color:#FFFFF0"></td>
+                    <th style="width:15%;border:1px solid black;padding:4px;text-align:right;border-left:0px solid transparent;background-color:#FFFFF0">بيانات العميل</th>
+                </tr>
+                <tr>
+                    <!-- Seller info columns-->
+                    <th style="width:15%;border:1px solid black;padding:2px;text-align:left;background-color:#FFFFF0">Name</th>
+                    <td style="width:20%;border:1px solid black;padding:2px; text-align: center;"><t t-esc="doc.company_id.name"/></td>
+                    <th style="width:15%;border:1px solid black;padding:2px;text-align:right;background-color:#FFFFF0">الاسم</th>
+
+                    <!-- Buyer Info Columns  -->
+                    <th style="width:15%;border:1px solid black;padding:2px;text-align:left;background-color:#FFFFF0">Name</th>
+                    <td style="width:20%;border:1px solid black;padding:2px; text-align: center;"><t t-esc="doc.partner_id.name" t-if="not doc.cash_customer"  /></td>
+                    <th style="width:15%;border:1px solid black;padding:2px;text-align:right;background-color:#FFFFF0">الاسم</th>
+                </tr>
+                <tr>
+                    <!-- Seller info columns-->
+                    <th style="border:1px solid black;padding:2px;text-align:left;background-color:#FFFFF0">Seller</th>
+                    <td style="border:1px solid black;padding:2px; text-align: center;"><t t-esc="doc.invoice_user_id.name"/></td>
+                    <th style="border:1px solid black;padding:2px;text-align:right;background-color:#FFFFF0">المندوب</th>
+
+                    <!-- Buyer Info Columns  -->
+                    <th style="border:1px solid black;padding:2px;text-align:left;background-color:#FFFFF0">Phone Number</th>
+                    <td style="border:1px solid black;padding:2px; text-align: center;"><t t-esc="doc.partner_id.phone" t-if="not doc.cash_customer"/></td>
+                    <th style="border:1px solid black;padding:2px;text-align:right;background-color:#FFFFF0">رقم الجوال</th>
+                </tr>
+                <tr>
+                    <!-- Seller info columns-->
+                    <th style="border:1px solid black;padding:2px;text-align:left;background-color:#FFFFF0">Building No.</th>
+                    <td style="border:1px solid black;padding:2px; text-align: center;"><t t-esc="doc.company_id.l10n_sa_edi_building_number"/></td>
+                    <th style="border:1px solid black;padding:2px;text-align:right;background-color:#FFFFF0">رقم المبنى</th>
+
+                    <!-- Buyer Info Columns  -->
+                    <th style="border:1px solid black;padding:2px;text-align:left;background-color:#FFFFF0">Building No.</th>
+                    <td style="border:1px solid black;padding:2px; text-align: center;"><t t-esc="doc.partner_id.l10n_sa_edi_building_number"/></td>
+                    <th style="border:1px solid black;padding:2px;text-align:right;background-color:#FFFFF0">رقم المبنى</th>
+                </tr>
+                <tr>
+                    <!-- Seller info columns-->
+                    <th style="border:1px solid black;padding:2px;text-align:left;background-color:#FFFFF0">Street Name</th>
+                    <td style="border:1px solid black;padding:2px; text-align: center;"><t t-esc="doc.company_id.street"/></td>
+                    <th style="border:1px solid black;padding:2px;text-align:right;background-color:#FFFFF0">اسم الشارع</th>
+
+                    <!-- Buyer Info Columns  -->
+                    <th style="border:1px solid black;padding:2px;text-align:left;background-color:#FFFFF0">Street Name</th>
+                    <td style="border:1px solid black;padding:2px; text-align: center;"><t t-esc="doc.partner_id.street"/></td>
+                    <th style="border:1px solid black;padding:2px;text-align:right;background-color:#FFFFF0">اسم الشارع</th>
+                </tr>
+                <tr>
+                    <!-- Seller info columns-->
+                    <th style="border:1px solid black;padding:2px;text-align:left;background-color:#FFFFF0">District</th>
+                    <td style="border:1px solid black;padding:2px; text-align: center;"><t t-esc="doc.company_id.street2"/></td>
+                    <th style="border:1px solid black;padding:2px;text-align:right;background-color:#FFFFF0">الحي</th>
+
+                    <!-- Buyer Info Columns  -->
+                    <th style="border:1px solid black;padding:2px;text-align:left;background-color:#FFFFF0">District</th>
+                    <td style="border:1px solid black;padding:2px; text-align: center;"><t t-esc="doc.partner_id.street2"/></td>
+                    <th style="border:1px solid black;padding:2px;text-align:right;background-color:#FFFFF0">الحي</th>
+                </tr>
+                <tr>
+                    <!-- Seller info columns-->
+                    <th style="border:1px solid black;padding:2px;text-align:left;background-color:#FFFFF0">City</th>
+                    <td style="border:1px solid black;padding:2px; text-align: center;"><t t-esc="doc.company_id.city"/></td>
+                    <th style="border:1px solid black;padding:2px;text-align:right;background-color:#FFFFF0">المدينة</th>
+
+                    <!-- Buyer Info Columns  -->
+                    <th style="border:1px solid black;padding:2px;text-align:left;background-color:#FFFFF0">City</th>
+                    <td style="border:1px solid black;padding:2px; text-align: center;"><t t-esc="doc.partner_id.city"/></td>
+                    <th style="border:1px solid black;padding:2px;text-align:right;background-color:#FFFFF0">المدينة</th>
+                </tr>
+                <tr>
+                    <!-- Seller info columns-->
+                    <th style="border:1px solid black;padding:2px;text-align:left;background-color:#FFFFF0">Country</th>
+                    <td style="border:1px solid black;padding:2px; text-align: center;"><t t-esc="doc.company_id.country_id.name"/></td>
+                    <th style="border:1px solid black;padding:2px;text-align:right;background-color:#FFFFF0">الدولة</th>
+
+                    <!-- Buyer Info Columns  -->
+                    <th style="border:1px solid black;padding:2px;text-align:left;background-color:#FFFFF0">Country</th>
+                    <td style="border:1px solid black;padding:2px; text-align: center;"><t t-esc="doc.partner_id.country_id.name"/></td>
+                    <th style="border:1px solid black;padding:2px;text-align:right;background-color:#FFFFF0">الدولة</th>
+                </tr>
+                <tr>
+                    <!-- Seller info columns-->
+                    <th style="border:1px solid black;padding:2px;text-align:left;background-color:#FFFFF0">Postal Code</th>
+                    <td style="border:1px solid black;padding:2px; text-align: center;"><t t-esc="doc.company_id.zip"/></td>
+                    <th style="border:1px solid black;padding:2px;text-align:right;background-color:#FFFFF0">الرمز البريدي</th>
+
+                    <!-- Buyer Info Columns  -->
+                    <th style="border:1px solid black;padding:2px;text-align:left;background-color:#FFFFF0">Postal Code</th>
+                    <td style="border:1px solid black;padding:2px; text-align: center;"><t t-esc="doc.partner_id.zip"/></td>
+                    <th style="border:1px solid black;padding:2px;text-align:right;background-color:#FFFFF0">الرمز البريدي</th>
+                </tr>
+                <tr>
+                    <!-- Seller info columns-->
+                    <th style="border:1px solid black;padding:2px;text-align:left;background-color:#FFFFF0">Additional Number</th>
+                    <td style="border:1px solid black;padding:2px; text-align: center;"><t t-esc="doc.company_id.l10n_sa_edi_plot_identification"/></td>
+                    <th style="border:1px solid black;padding:2px;text-align:right;background-color:#FFFFF0">الرقم الاضافي</th>
+
+                    <!-- Buyer Info Columns  -->
+                    <th style="border:1px solid black;padding:2px;text-align:left;background-color:#FFFFF0">Additional Number</th>
+                    <td style="border:1px solid black;padding:2px; text-align: center;"><t t-esc="doc.partner_id.l10n_sa_edi_plot_identification"/></td>
+                    <th style="border:1px solid black;padding:2px;text-align:right;background-color:#FFFFF0">الرقم الاضافي</th>
+                </tr>
+                <tr>
+                    <!-- Seller info columns-->
+                    <th style="border:1px solid black;padding:2px;text-align:left;background-color:#FFFFF0">VAT NO.</th>
+                    <td style="border:1px solid black;padding:2px; text-align: center;"><t t-esc="doc.company_id.vat"/></td>
+                    <th style="border:1px solid black;padding:2px;text-align:right;background-color:#FFFFF0">الرقم الضريبي</th>
+
+                    <!-- Buyer Info Columns  -->
+                    <th style="border:1px solid black;padding:2px;text-align:left;background-color:#FFFFF0">VAT NO.</th>
+                    <td style="border:1px solid black;padding:2px; text-align: center;"><t t-esc="doc.partner_id.vat"/></td>
+                    <th style="border:1px solid black;padding:2px;text-align:right;background-color:#FFFFF0">الرقم الضريبي</th>
+                </tr>
+                
+                <tr>
+                    <th colspan="3" style="border:1px solid black;padding:2px;text-align:left;background-color:#FFFFF0"></th>
+                    <!-- <td style="border:1px solid black;padding:2px; text-align: center;"><t t-esc="doc.company_id.other_seller_id"/></td>
+                    <th style="border:1px solid black;padding:2px;text-align:right;background-color:#FFFFF0">بائع اخر</th> -->
+
+                    <th style="border:1px solid black;padding:2px;text-align:left;background-color:#FFFFF0">CR NO.</th>
+                    <td style="border:1px solid black;padding:2px; text-align: center;"><t t-esc="doc.partner_id.company_registry"/></td>
+                    <th style="border:1px solid black;padding:2px;text-align:right;background-color:#FFFFF0">السجل التجاري</th>
+                </tr> 
+                <!-- 
+                <tr>
+                    <th colspan="3" style="border:1px solid black;padding:2px;text-align:left;background-color:#FFFFF0"></th> -->
+                    <!-- 
+                    <td style="border:1px solid black;padding:2px; text-align: center;"><t t-esc="doc.company_id.other_seller_id"/></td>
+                    <th style="border:1px solid black;padding:2px;text-align:right;background-color:#FFFFF0">بائع اخر</th> 
+                    -->
+
+                    <!-- <th style="border:1px solid black;padding:2px;text-align:left;background-color:#FFFFF0">Cash Customer </th>
+                    <td style="border:1px solid black; padding:2px; text-align: center;">
+                        <t t-if="doc.partner_id.cash_customer"> <p class="m-0">Yes / نعم</p> </t>
+                        <t t-else=""> <p class="m-0">No / لأ</p> </t>
+                    </td>
+                    <th style="border:1px solid black;padding:2px;text-align:right;background-color:#FFFFF0">عميل نقدي </th>
+                </tr>  -->
+            
+            </table>
+
+            <t t-if="doc.cash_customer">
+
+                <table class="table" style="border:1px solid black;padding:2px;">
+                    <tr>
+                        <th style="border:1px solid black;padding:2px;text-align:left;background-color:#FFFFF0; width: 33.3%;">Cash Customer </th>
+                        <td style="border:1px solid black; padding:2px; text-align: center; width: 33.3%;"><p class="m-0">Yes / نعم</p></td>
+                        <th style="border:1px solid black;padding:2px;text-align:right;background-color:#FFFFF0; width: 33.3%;">عميل نقدي </th>
+                    </tr> 
+                    <tr>
+                        <th style="border:1px solid black;padding:2px;text-align:left;background-color:#FFFFF0; width: 33.3%;">Name </th>
+                        <td style="border:1px solid black; padding:2px; text-align: center; width: 33.3%;">
+                            <t t-esc="doc.customer_name" t-if="doc.customer_name" />
+                        </td>
+                        <th style="border:1px solid black;padding:2px;text-align:right;background-color:#FFFFF0; width: 33.3%;">الاسم</th>
+                    </tr> 
+                    <tr>
+                        <th style="border:1px solid black;padding:2px;text-align:left;background-color:#FFFFF0; width: 33.3%;">Phone Number </th>
+                        <td style="border:1px solid black; padding:2px; text-align: center; width: 33.3%;">
+                            <t t-esc="doc.customer_mobile" t-if="doc.customer_mobile" />
+                        </td>
+                        <th style="border:1px solid black;padding:2px;text-align:right;background-color:#FFFFF0; width: 33.3%;">رقم الهاتف</th>
+                    </tr> 
+                    <tr>
+                        <th style="border:1px solid black;padding:2px;text-align:left;background-color:#FFFFF0; width: 33.3%;">TAX NO.</th>
+                        <td style="border:1px solid black; padding:2px; text-align: center; width: 33.3%;">
+                            <t t-esc="doc.customer_tax_no" t-if="doc.customer_tax_no" />
+                        </td>
+                        <th style="border:1px solid black;padding:2px;text-align:right;background-color:#FFFFF0; width: 33.3%;">الرقم الضريبي</th>
+                    </tr> 
+                    <tr>
+                        <th style="border:1px solid black;padding:2px;text-align:left;background-color:#FFFFF0; width: 33.3%;">Address</th>
+                        <td style="border:1px solid black; padding:2px; text-align: center; width: 33.3%;">
+                            <t t-esc="doc.customer_address" t-if="doc.customer_address" />
+                        </td>
+                        <th style="border:1px solid black;padding:2px;text-align:right;background-color:#FFFFF0; width: 33.3%;">العنوان</th>
+                    </tr> 
+                </table>
+            </t>
+
+            <!-- End of 3rd table -->
+            <br/>
+            <!-- 4rth Table -->
+            <table class="table" style="border:1px solid black;padding:1px;">
+                <tr>
+                    <th style="border:1px solid black;padding:4px;border-right:0px solid transparent;text-align:left;background-color:#FFFFF0; width: 30%;">Line Item</th>
+                    <td style="border:1px solid black;padding:2px;border:0px solid transparent;background-color:#FFFFF0; width: 10%;"></td>
+                    <td style="border:1px solid black;padding:2px;border:0px solid transparent;background-color:#FFFFF0; width: 10%;"></td>
+                    <td style="border:1px solid black;padding:2px;border:0px solid transparent;background-color:#FFFFF0; width: 10%;"></td>
+                    <td style="border:1px solid black;padding:2px;border:0px solid transparent;background-color:#FFFFF0; width: 10%;"></td>
+                    <td style="border:1px solid black;padding:2px;border:0px solid transparent;background-color:#FFFFF0; width: 10%;"></td>
+                    <td style="border:1px solid black;padding:2px;border:0px solid transparent;background-color:#FFFFF0; width: 10%;"></td>
+                    <th style="border:1px solid black;padding:4px;text-align:right;border-left:0px solid transparent;background-color:#FFFFF0; width: 10%;">بنــــد</th>
+                </tr>
+                <tr>
+                    <th style="border:1px solid black;padding:2px;max-width:100px;width:200px;background-color:#FFFFF0">السلع او الخدمات</th>
+                    <th style="border:1px solid black;padding:2px;background-color:#FFFFF0">سعر الوحدة</th>
+                    <th style="border:1px solid black;padding:2px;background-color:#FFFFF0">الكمية</th>
+                    <th style="border:1px solid black;padding:2px;background-color:#FFFFF0">المبلغ قبل الضريبة</th>
+                    <th style="border:1px solid black;padding:2px;background-color:#FFFFF0">خصم</th>
+                    <th style="border:1px solid black;padding:2px;background-color:#FFFFF0">نسبة الضريبة</th>
+                    <th style="border:1px solid black;padding:2px;background-color:#FFFFF0">قيمة الضريبة</th>
+                    <th style="border:1px solid black;padding:2px;background-color:#FFFFF0">المجموع شامل الضريبة</th>
+                </tr>
+                <tr>
+                    <th style="border:1px solid black;padding:2px;background-color:#FFFFF0">Goods or services</th>
+                    <th style="border:1px solid black;padding:2px;background-color:#FFFFF0">Unit Price</th>
+                    <th style="border:1px solid black;padding:2px;background-color:#FFFFF0">Qty</th>
+                    <th style="border:1px solid black;padding:2px;background-color:#FFFFF0">Subtotal Amount</th>
+                    <th style="border:1px solid black;padding:2px;background-color:#FFFFF0">Discount</th>
+                    <th style="border:1px solid black;padding:2px;background-color:#FFFFF0">Tax Rate</th>
+                    <th style="border:1px solid black;padding:2px;background-color:#FFFFF0">Tax Amount</th>
+                    <th style="border:1px solid black;padding:2px;background-color:#FFFFF0">Total Amout</th>
+                </tr>
+                <t t-foreach="doc.invoice_line_ids" t-as="line">
+                    <tr>
+                    <t t-if="line.display_type not in ('line_note', 'line_section')">
+                        <th style="border:1px solid black;padding:2px;"><t t-esc="line.report_name"/></th>
+                        <th style="border:1px solid black;padding:2px;"><t t-esc="line.price_unit"/></th>
+                        <th style="border:1px solid black;padding:2px;"><t t-esc="line.quantity"/></th>
+                        <th style="border:1px solid black;padding:2px;"><t t-esc="line.price_subtotal"/></th>
+                        <th style="border:1px solid black;padding:2px;"><t t-esc="line.discount"/><span t-if="line.discount">%</span></th>
+                        <th style="border:1px solid black;padding:2px;"><t t-foreach="line.tax_ids" t-as="tax"><t t-esc="tax.name"/></t></th>
+                        <th style="border:1px solid black;padding:2px;"><t t-esc="line.line_tax_Amount"/></th>
+                        <th style="border:1px solid black;padding:2px;"><t t-esc="line.price_total"/></th>
+                    </t>
+                    <t t-else="">
+                        <th colspan="8" class="text-center">
+                            <t t-esc="line.name" t-options="{'widget': 'text'}" />
+                        </th>
+                    </t>
+                    </tr>
+                </t>
+            </table>
+            <!-- End of 4rth Table -->
+            <br/>
+            <!-- 5th Table -->
+            <table class="table" style="border:1px solid black;padding:1px;">
+                <tr>
+                    <th style="width:35%;border:1px solid black;padding:4px;border-right:0px solid transparent;text-align:left;background-color:#FFFFF0">Total Amount</th>
+                    <td style="width:30%;border:1px solid black;padding:2px;border:0px solid transparent;background-color:#FFFFF0"></td>
+                    <th style="width:35%;border:1px solid black;padding:4px;text-align:right;border-left:0px solid transparent;direction: rtl;background-color:#FFFFF0">المبلغ الاجمالي</th>
+                </tr>
+                <tr>
+                    <th style="border:1px solid black;padding:2px;text-align:left;;background-color:#FFFFF0;">Total Without VAT</th>
+                    <td style="border:1px solid black;padding:2px;text-align:center;"><t t-esc="doc.amount_untaxed" t-options='{"widget": "float", "precision": 2}'/><t t-esc="doc.currency_id.symbol" /></td>
+                    <th style="border:1px solid black;padding:2px;text-align:right;direction: rtl;background-color:#FFFFF0">الاجمالي بإستثناء ضريبة القيمة المضافة</th>
+                </tr>
+                <tr>
+                    <t t-set="disc_value" t-value="doc.amount_move_undiscounted - doc.amount_untaxed"/>
+                    <th style="border:1px solid black;padding:2px;text-align:left;;background-color:#FFFFF0;">Discount</th>
+                    <td style="border:1px solid black;padding:2px;text-align:center"><t t-esc="disc_value" t-options='{"widget": "float", "precision": 2}'/><t t-esc="doc.currency_id.symbol" /></td>
+                    <th style="border:1px solid black;padding:2px;text-align:right;background-color:#FFFFF0">خصم</th>
+                </tr>
+                <tr>
+                
+                    <t t-set="taxable_value" t-value="doc.amount_total - doc.amount_tax"/>
+                    <th style="border:1px solid black;padding:2px;text-align:left;;background-color:#FFFFF0;">Total Taxable Amount Without VAT</th>
+                    <td style="border:1px solid black;padding:2px;text-align:center"><t t-esc="taxable_value" t-options='{"widget": "float", "precision": 2}'/><t t-esc="doc.currency_id.symbol" /></td>
+                    <th style="border:1px solid black;padding:2px;text-align:right;direction: rtl;background-color:#FFFFF0">إجمالي المبلغ الخاضع للضريبة بإستثناء ضريبة القيمة المضافة</th>
+                </tr>
+                <tr>
+                    <th style="border:1px solid black;padding:2px;text-align:left;;background-color:#FFFFF0;">VAT Amount</th>
+                    <td style="border:1px solid black;padding:2px;text-align:center"><t t-esc="doc.amount_tax" t-options='{"widget": "float", "precision": 2}'/><t t-esc="doc.currency_id.symbol" /></td>
+                    <th style="border:1px solid black;padding:2px;text-align:right;direction: rtl;background-color:#FFFFF0">إجمالي ضريبة القيمة المضافة</th>
+                </tr>
+                <tr>
+                    <th style="border:1px solid black;padding:2px;text-align:left;;background-color:#FFFFF0;">Total Amount</th>
+                    <td style="border:1px solid black;padding:2px;text-align:center"><t t-esc="doc.amount_total" t-options='{"widget": "float", "precision": 2}'/><t t-esc="doc.currency_id.symbol" /></td>
+                    <th style="border:1px solid black;padding:2px;text-align:right;direction: rtl;background-color:#FFFFF0">إجمالي المبلغ المستحق</th>
+                </tr>
+                <tr>
+                    <th style="border:1px solid black;padding:2px;text-align:left;background-color:#FFFFF0">Invoiced Amount</th>
+                    <td style="border:1px solid black;padding:2px;text-align:center"><t t-esc="doc.amount_total_in_currency_signed" t-options='{"widget": "float", "precision": 2}'/><t t-esc="doc.currency_id.symbol" /></td>
+                    <th style="border:1px solid black;padding:2px;text-align:right;direction: rtl;background-color:#FFFFF0">المبلغ المفوتر</th>
+                </tr>
+            </table>
+            <br/>
+
+
+            <table class="table" style="border:1px solid black;padding:1px;" t-if="doc.narration">
+                <tr>
+                    <th style="width:35%;border:1px solid black;padding:4px;border-right:0px solid transparent;text-align:left;background-color:#FFFFF0">Terms And Conditions</th>
+                    <th style="width:35%;border:1px solid black;padding:4px;text-align:right;border-left:0px solid transparent;direction: rtl;background-color:#FFFFF0">الشروط والاحكام</th>
+                </tr>
+                <tr>
+                    <td style="border:1px solid black;padding:2px;text-align:center;direction:rtl" colspan="2"><t t-esc="doc.narration"  t-if="doc.narration" /></td>
+                </tr>
+            </table>
+            <br/>
+            
+            <table class="table" style="page-break-inside: avoid; border:1px solid black;padding:1px;">
+                <tr>
+                    <th style="width:35%;border:1px solid black;padding:4px;border-right:0px solid transparent;text-align:left;background-color:#FFFFF0">Summary</th>
+                    <th style="width:35%;border:1px solid black;padding:4px;text-align:right;border-left:0px solid transparent;direction: rtl;background-color:#FFFFF0">الملخص</th>
+                </tr>
+                <tr>
+                    <td style="border:1px solid black;padding:2px;text-align:center;direction:rtl" colspan="2">
+                        <span>المبلغ قبل الضريبة: </span>SR <span class="m-0" t-esc="doc.s_subtotal" /> |
+                        <span>الضريبة: </span>SR <span class="m-0" t-field="doc.s_total_tax" /> |
+                        <span>المبلغ بعد الضريبة: </span>SR <span class="m-0" t-field="doc.s_total" /><br/>
+                        <span>المدفوع: </span>SR <span class="m-0" t-esc="doc.s_paid" /><br/>
+                        <span>المتبقي: </span>SR <span class="m-0" t-field="doc.s_residual" />
+                    </td>
+                </tr>
+            </table>
+    </div>
+</t>
+
+</t>
+</template>
+
+<record id="account.account_invoices" model="ir.actions.report">
+    <field name="paperformat_id" ref="anfal_qr.anfal_qr_custom_format"/>
+</record>
+
+
+<template id="inherit_report_invoice_document" inherit_id="account.report_invoice_with_payments">
+    <xpath expr="//t[@t-call=&quot;account.report_invoice&quot;]" position="replace">
+        <t t-foreach="docs" t-as="doc">
+            <t t-call="anfal_qr.report_invoice_document2" />
+        </t>
+    </xpath>
+</template>
+
+</odoo>
